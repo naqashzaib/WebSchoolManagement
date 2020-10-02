@@ -1,0 +1,6 @@
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\bin\suitespk.dll.config
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\bin\suitespk.dll
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\bin\suitespk.pdb
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\obj\Debug\suitespk.csprojResolveAssemblyReference.cache
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\obj\Debug\suitespk.dll
+D:\NAQASH      ( I.T )\Dot Net\Production\suitespk\obj\Debug\suitespk.pdb

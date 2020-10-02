@@ -1,0 +1,812 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="suitespk.Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Suites.PK | Dashboard</title>
+    <!-- App favicon -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="./assets/images/iconS.png" />
+    <!-- third party css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./assets/css/toastr.min.css" />
+    <link rel="stylesheet" href="./assets/css/sweetalert.min.css" />
+    
+    
+     <script>
+        $(document).ready(function () {
+            var getloginroleid;
+            if ('<%= Session["username"].ToString() %>' == null || '<%= Session["username"].ToString() %>' == "") {
+                window.location.href = "../Default.aspx";
+            } else {
+                $('.clsSpanUserName').html('<%= Session["username"].ToString() %>');
+                localStorage['adminid'] = '<%= Session["login_id"].ToString() %>';
+                var userrole = '<%= Session["userrole"].ToString() %>';
+            }
+        });      
+
+        function convertdefulatnumber(date) {
+            if (date == "" || date == "0" || date == "0.00" || date == "0.0") {
+                return number = 0;
+            } else {
+                var currency = date; //it works for US-style currency strings as well
+                var cur_re = /\D*(\d+|\d.*?\d)(?:\D+(\d{2}))?\D*$/;
+                var parts = cur_re.exec(currency);
+                var number = parseFloat(parts[1].replace(/,/g, "") + '.' + (parts[2] ? parts[2] : '00'));
+                return number;
+            }
+
+        }
+        function dateFormatChangedmyWithMonthName(date) {
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+            var dateAr1 = date.split('-');
+            return dateAr1[2] + '-' + monthNames[dateAr1[1] - 1] + '-' + dateAr1[0];
+        }
+        function convertdefulatnumber(date) {
+            if (date == "" || date == "0" || date == "0.00" || date == "0.0") {
+                return number = 0;
+            } else {
+                var currency = date; //it works for US-style currency strings as well
+                var cur_re = /\D*(\d+|\d.*?\d)(?:\D+(\d{2}))?\D*$/;
+                var parts = cur_re.exec(currency);
+                var number = parseFloat(parts[1].replace(/,/g, "") + '.' + (parts[2] ? parts[2] : '00'));
+                return number;
+            }
+
+         }
+
+        function signOut() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "../Default.aspx";
+        }
+    </script>
+    
+
+      <style>
+        .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--single {
+            min-height: 34px;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                line-height: 20px;
+                min-height: 20px;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                padding-top: 6px;
+                padding-bottom: 0px;
+            }
+
+
+        .txtNarration1 {
+            box-sizing: border-box;
+        }
+
+
+        /*the container must be positioned relative:*/
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
+
+        .txtNarration1 {
+            /*background-color: #f1f1f1;*/
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .txtNarration1 {
+            width: 100%;
+        }
+
+
+        .txtConsigner {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .txtConsigner {
+            width: 100%;
+        }
+
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 98%;
+            margin-left: 1%;
+        }
+
+            .autocomplete-items div {
+                padding: 10px;
+                cursor: pointer;
+                background-color: #fff;
+                border-bottom: 1px solid #d4d4d4;
+            }
+
+                /*when hovering an item:*/
+                .autocomplete-items div:hover {
+                    background-color: #e9e9e9;
+                }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+
+        .dropdown-menu .header {
+            font-size: 13px;
+            font-weight: bold;
+            min-width: 270px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            padding: 4px 0 6px 0;
+        }
+
+        .dropdown-menu ul.menu li a {
+            padding: 7px 11px;
+            text-decoration: none;
+            -moz-transition: 0.5s;
+            -o-transition: 0.5s;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            display: block;
+        }
+
+        .navbar-nav .open .dropdown-menu {
+            position: absolute;
+            background: #fff;
+            margin-top: 0;
+            border: 1px solid #1ABB9C;
+            -webkit-box-shadow: none;
+            right: 0;
+            left: auto;
+            width: 300px;
+            background-color: #1ABB9C;
+            position: absolute;
+            top: 100%;
+            /* left: 0; */
+            /* z-index: 1000; */
+            /* display: none; */
+            float: left;
+            min-width: 160px;
+            /* padding: 5px 0; */
+            margin: 2px 0 0;
+            font-size: 14px;
+            text-align: left;
+            /* list-style: none; */
+            background-color: #fff;
+        }
+
+        .dropdown-menu ul.menu .menu-info h4 {
+            margin: 0;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .dropdown-menu ul.menu li {
+            border-bottom: 1px solid #eee;
+        }
+
+            .dropdown-menu ul.menu li a {
+                padding: 7px 11px;
+                text-decoration: none;
+                transition: 0.5s;
+                display: block;
+            }
+
+        .dropdown-menu ul.menu .menu-info {
+            position: relative;
+            top: 3px;
+            left: 5px;
+        }
+
+        .dropdown-menu ul.menu {
+            padding-left: 0;
+        }
+
+            .dropdown-menu ul.menu .menu-info p {
+                margin: 0;
+                font-size: 11px;
+                color: #aaa;
+            }
+
+            .dropdown-menu ul.menu .icon-circle {
+                width: 36px;
+                height: 36px;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                color: #fff;
+                text-align: center;
+                float: left
+            }
+
+        .bg-light-green {
+            background-color: #8BC34A !important;
+            color: #fff;
+        }
+
+        .dropdown-menu ul.menu .icon-circle i {
+            font-size: 18px;
+            line-height: 36px;
+        }
+
+        .dropdown-menu ul.menu .menu-info p {
+            margin: 0;
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .dropdown-menu .footer a {
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding: 5px 0 5px 0;
+            font-size: 13px;
+            margin-bottom: -5px;
+        }
+
+        .dropdown-menu > li > a {
+            color: #666;
+            transition: all 0.5s;
+            line-height: 25px;
+        }
+
+            .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+                color: #262626;
+                text-decoration: none;
+                background-color: #f5f5f5;
+            }
+
+        .dropdown-menu .footer a:hover {
+            background-color: transparent;
+        }
+
+        .dropdown-menu .footer a {
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding: 5px 0 5px 0;
+            font-size: 13px;
+            margin-bottom: -5px;
+        }
+
+        .bg-blue-grey {
+            background-color: #607D8B !important;
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #34babd;
+            border-radius: 10px;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #1ABB9C;
+            }
+
+        .fade.in {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+           .form-control {
+    height: 28px;
+    padding: 6px 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-radius: 6px!important;
+    font-family: serif;
+
+    /*margin-top: 4px;*/
+}
+        .select2-container--default .select2-selection--single {
+    border-radius: 5px;
+}
+        .select2-results__option {
+    padding: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    font-family: initial;
+
+}
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+       font-size: 11px;
+    font-weight: 700;
+    font-family: initial;
+
+}
+
+     table thead th,td {
+                font-size: 12px;
+                text-align: center;
+        }
+     table thead {
+              background-color: #1a2942;
+        }
+      table thead th {
+            color: #ffffff;
+            text-align: center;
+        }
+     .form-horizontal .control-label {
+    font-family: serif;
+}
+    
+     table
+     {
+         font-family:serif !important;
+     }
+     #spanVoucherType,#spansepratevouchers
+     {
+         font-family:serif !important;
+
+     }
+     .green,modal-title
+     {
+         font-family:serif !important;
+                font-size: 13px;
+
+     }
+       .table {
+    margin-bottom: 2px !important;
+}
+          .panel-body {
+    padding: 2px !important;
+}
+.x_content {
+    margin-top: -5px !important;
+}
+.x_title {
+    padding: 0px !important;
+}
+  .btn {
+     padding: 6px!important;
+    font-size: 13px!important;
+line-height: 10px!important;
+        }
+        /*table thead tr th {
+            background: #001f34;
+            color: #ECF0F1;
+            position: sticky;
+            z-index: 100;
+            top: 0;
+        }
+
+
+        .serchhtmlstyle
+        {
+            float: right;
+        }*/
+
+  div.dataTables_wrapper div.dataTables_length select {
+    width: 50%!important;
+    height: 31px;
+}
+  .page-title-box .page-title {
+    margin-top: 0.9%!important;
+}
+  .page-title-box {
+    padding: 5px 20px!important;
+}
+          .footer {
+              background-color: #fffcfc!important;
+              padding: 0px 0px 0px!important;
+          }
+          body {
+    margin: 0;
+    font-size: 14px!important;
+    color: #383838!important;
+    background-color: #f9f9f9bf!important;
+}
+
+
+
+    </style>
+
+    <!-- App css -->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <!--Jquery plugin-->
+</head>
+<body>
+
+    <div class="navbar-custom">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+
+          <%--  <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="mdi mdi-email-outline noti-icon"></i>
+                    <span class="badge badge-purple rounded-circle noti-icon-badge">3</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="font-16 m-0">
+                            <span class="float-right">
+                                <a href="#" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Chat
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll noti-scroll">
+
+                        <div class="inbox-widget">
+                            <a href="#">
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img">
+                                        <img src="../assets/images/users/avatar-1.jpg" class="rounded-circle" alt="">
+                                    </div>
+                                    <p class="inbox-item-author">Cristina Pride</p>
+                                    <p class="inbox-item-text text-truncate">Hi, How are you? What about our next meeting</p>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img">
+                                        <img src="../assets/images/users/avatar-2.jpg" class="rounded-circle" alt="">
+                                    </div>
+                                    <p class="inbox-item-author">Sam Garret</p>
+                                    <p class="inbox-item-text text-truncate">Yeah everything is fine</p>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img">
+                                        <img src="../assets/images/users/avatar-3.jpg" class="rounded-circle" alt="">
+                                    </div>
+                                    <p class="inbox-item-author">Karen Robinson</p>
+                                    <p class="inbox-item-text text-truncate">Wow that's great</p>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img">
+                                        <img src="../assets/images/users/avatar-4.jpg" class="rounded-circle" alt="">
+                                    </div>
+                                    <p class="inbox-item-author">Sherry Marshall</p>
+                                    <p class="inbox-item-text text-truncate">Hi, How are you? What about our next meeting</p>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="inbox-item">
+                                    <div class="inbox-item-img">
+                                        <img src="../assets/images/users/avatar-5.jpg" class="rounded-circle" alt="">
+                                    </div>
+                                    <p class="inbox-item-author">Shawn Millard</p>
+                                    <p class="inbox-item-text text-truncate">Yeah everything is fine</p>
+
+                                </div>
+                            </a>
+                        </div>
+                        <!-- end inbox-widget -->
+
+                    </div>
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">View all
+                                <i class="fi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </li>
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="mdi mdi-bell-outline noti-icon"></i>
+                    <span class="badge badge-pink rounded-circle noti-icon-badge">4</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="font-16 m-0">
+                            <span class="float-right">
+                                <a href="#" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll noti-scroll">
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon">
+                                <i class="mdi mdi-comment-account-outline text-info"></i>
+                            </div>
+                            <p class="notify-details">
+                                Caleb Flakelar commented on Admin
+                                        <small class="noti-time">1 min ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-success">
+                                <i class="mdi mdi-account-plus text-primary"></i>
+                            </div>
+                            <p class="notify-details">
+                                New user registered.
+                                        <small class="noti-time">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-danger">
+                                <i class="mdi mdi-heart text-danger"></i>
+                            </div>
+                            <p class="notify-details">
+                                Carlos Crouch liked 
+                                        <small class="noti-time">3 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-warning">
+                                <i class="mdi mdi-comment-account-outline text-primary"></i>
+                            </div>
+                            <p class="notify-details">
+                                Caleb Flakelar commented on Admi
+                                        <small class="noti-time">4 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-purple">
+                                <i class="mdi mdi-account-plus text-danger"></i>
+                            </div>
+                            <p class="notify-details">
+                                New user registered.
+                                        <small class="noti-time">7 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon text-danger">
+                                <i class="mdi mdi-heart text-danger"></i>
+                            </div>
+                            <p class="notify-details">
+                                Carlos Crouch liked <b>Admin</b>.
+                                        <small class="noti-time">Carlos Crouch liked</small>
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center notify-item notify-all">See all notifications
+                    </a>
+
+                </div>
+            </li>--%>
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="../assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                    <span class="pro-user-name ml-1 clsSpanUserName" >   <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <!-- item-->
+               
+
+                    <!-- item-->
+                    <a href="Profile.aspx" class="dropdown-item notify-item">
+                        <i class="mdi mdi-account-outline"></i>
+                        <span>Profile</span>
+                    </a>
+                    <!-- item-->
+                    <div class="dropdown-divider"></div>
+                    
+
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout-variant"></i>
+                        <span onclick="signOut();">   Log Out</span>
+                    </a>
+
+                </div>
+            </li>
+
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="<%= Page.ResolveUrl("~/dashboard") %>" class="logo text-center logo-dark">
+                <span class="logo-lg">
+                    <img src="../assets/images/logoWhite.png" alt="" height="18" />
+                    <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                </span>
+                <span class="logo-sm">
+                    <!-- <span class="logo-lg-text-dark">V</span> -->
+                    <img src="../assets/images/iconSw.png" alt="" height="">
+                </span>
+            </a>
+
+            <a href="<%= Page.ResolveUrl("~/dashboard") %>" class="logo text-center logo-light">
+                <span class="logo-lg">
+                    <img src="../assets/images/logoWhite.png" alt="" height="">
+                    <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                </span>
+                <span class="logo-sm">
+                    <!-- <span class="logo-lg-text-dark">V</span> -->
+                    <img src="../assets/images/iconSw.png" alt="" height="">
+                </span>
+            </a>
+        </div>
+
+        <!-- LOGO -->
+
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </li>
+
+         
+        </ul>
+    </div>
+
+    <!--left sidebar-->
+    <div class="left-side-menu">
+
+        <div class="slimscroll-menu">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+            <ul class="metismenu" id="side-menu">
+
+                    <li class="menu-title">Navigation</li>
+                
+                
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="ion-md-basket"></i>
+                        <span> Student </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+
+                        <li><a href="../School/students-data.aspx">Add Student</a></li>
+                        <li><a href="../School/Add_Teacher.aspx">View Grades</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="ion-md-basket"></i>
+                        <span> Teacher </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+
+                        <li><a href="../School/Add_Teacher.aspx">Add Teacher</a></li>
+                        <li><a href="../School/Add_Teacher.aspx">Add Student Result</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="ion-md-basket"></i>
+                        <span> Configuration </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="../School/add_classes.aspx">Add Class</a></li>
+                    </ul>
+                </li>
+
+
+                </ul>
+                
+                
+                
+                
+                
+                
+
+            </div>
+            <!-- End Sidebar -->
+
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!--end left sidebar-->
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    2020 &copy;Educator lasani campus Design By <a href="#">Exploit Tech.</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../assets/js/vendor.min.js"></script>
+    <!-- Required datatable js -->
+    <script src="../assets/libs/moment/moment.min.js"></script>
+    <script src="../assets/libs/jquery-scrollto/jquery.scrollTo.min.js"></script>
+    <script src="../assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Vendor js -->
+<script src="../assets/libs/toastr/toastr.min.js"></script>
+
+<script src="../assets/js/pages/toastr.init.js"></script>
+    <!-- Required datatable js -->
+    <script src="../assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="../assets/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="../assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../assets/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="../assets/libs/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/libs/datatables/buttons.html5.min.js"></script>
+    <script src="../assets/libs/datatables/buttons.print.min.js"></script>
+
+    <!-- Responsive examples -->
+    <script src="../assets/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="../assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+    <script src="../assets/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="../assets/libs/datatables/dataTables.select.min.js"></script>
+
+    <!-- Datatables init -->
+    <script src="../assets/js/pages/datatables.init.js"></script>
+
+    <!-- App js -->
+    <script src="../assets/js/app.min.js"></script>
+
+</body>
+</html>
