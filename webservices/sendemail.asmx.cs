@@ -102,12 +102,12 @@ namespace suitespk.webservices
                     client.EnableSsl = true;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("naqashzaib5@gmail.com", "naqq11255");
+                    client.Credentials = new NetworkCredential("naqash031@gmail.com", "naqash12");
                     MailMessage mm = new MailMessage(objSendEmail.EmailAddress, objSendEmail.EmailAddress, objSendEmail.Subject, htmlbody);
-                    mm.From = new MailAddress("naqashzaib5@gmail.com", "Farooq Tech");
+                    mm.From = new MailAddress("naqash031@gmail.com", "Farooq Tech");
                     mm.IsBodyHtml = true;
                     mm.Priority = MailPriority.Normal;
-                    mm.ReplyToList.Add("naqashzaib5@gmail.com");
+                    mm.ReplyToList.Add("naqash031@gmail.com");
                     mm.BodyEncoding = Encoding.Default;
                     mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                     client.Send(mm);
