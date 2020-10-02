@@ -260,9 +260,12 @@
     <Content Include="PasswordCheck\passwordstrength.jpg" />
     <Content Include="Profile.aspx" />
     <Content Include="School\add_classes.aspx" />
+    <Content Include="School\add_subjects.aspx" />
     <Content Include="School\Add_Teacher.aspx" />
     <Content Include="School\send_sms.aspx" />
     <Content Include="School\students-data.aspx" />
+    <Content Include="School\students_grades_report.aspx" />
+    <Content Include="School\student_grades.aspx" />
     <Content Include="temp\footer.html" />
     <Content Include="temp\right-sidebar.html" />
     <Content Include="temp\sidebar.html" />
@@ -270,6 +273,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="webservices\AddGrades.asmx" />
+    <Content Include="webservices\AddSubjects.asmx" />
     <Content Include="webservices\AddUser.asmx" />
     <Content Include="webservices\sendemail.asmx" />
     <Content Include="webservices\Send_SMS.asmx" />
@@ -330,6 +335,13 @@
     <Compile Include="School\add_classes.aspx.designer.cs">
       <DependentUpon>add_classes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="School\add_subjects.aspx.cs">
+      <DependentUpon>add_subjects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="School\add_subjects.aspx.designer.cs">
+      <DependentUpon>add_subjects.aspx</DependentUpon>
+    </Compile>
     <Compile Include="School\Add_Teacher.aspx.cs">
       <DependentUpon>Add_Teacher.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -350,6 +362,28 @@
     </Compile>
     <Compile Include="School\students-data.aspx.designer.cs">
       <DependentUpon>students-data.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="School\students_grades_report.aspx.cs">
+      <DependentUpon>students_grades_report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="School\students_grades_report.aspx.designer.cs">
+      <DependentUpon>students_grades_report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="School\student_grades.aspx.cs">
+      <DependentUpon>student_grades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="School\student_grades.aspx.designer.cs">
+      <DependentUpon>student_grades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webservices\AddGrades.asmx.cs">
+      <DependentUpon>AddGrades.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="webservices\AddSubjects.asmx.cs">
+      <DependentUpon>AddSubjects.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="webservices\AddUser.asmx.cs">
       <DependentUpon>AddUser.asmx</DependentUpon>

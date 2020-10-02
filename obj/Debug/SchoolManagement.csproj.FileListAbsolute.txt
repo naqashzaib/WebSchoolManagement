@@ -10,3 +10,9 @@ D:\Naqash IT\Production\freelancing\SchoolManagement\bin\suitespk.pdb
 D:\Naqash IT\Production\freelancing\SchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
 D:\Naqash IT\Production\freelancing\SchoolManagement\obj\Debug\suitespk.dll
 D:\Naqash IT\Production\freelancing\SchoolManagement\obj\Debug\suitespk.pdb
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\bin\suitespk.dll.config
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\bin\suitespk.dll
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\bin\suitespk.pdb
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\suitespk.dll
+D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\suitespk.pdb
