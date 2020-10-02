@@ -491,10 +491,7 @@ line-height: 10px!important;
                
 
                     <!-- item-->
-                    <a href="../Profile.aspx" class="dropdown-item notify-item">
-                        <i class="mdi mdi-account-outline"></i>
-                        <span>Profile</span>
-                    </a>
+                  
                     <!-- item-->
                     <div class="dropdown-divider"></div>
                     
@@ -568,9 +565,11 @@ line-height: 10px!important;
                     <ul class="nav-second-level" aria-expanded="false">
 
                         <li class="listshowstudent"><a href="/School/students-data.aspx">Add Student</a></li>
-                        <li><a href="/School/students_grades_report.aspx">View Mark Sheet</a></li>
+                        <li><a  class="clsteachers" href="/School/students_grades_report.aspx">View Mark Sheet</a></li>
+                        <li><a href="/School/student_result_card.aspx">Student Result Card</a></li>
+
                     </ul>
-                </li>
+                </l>i
                 
                 <li class="clsadmin clsteachers">
                     <a href="javascript: void(0);" class="waves-effect">
@@ -582,7 +581,6 @@ line-height: 10px!important;
 
                         <li class="listshowteacher"><a href="/School/Add_Teacher.aspx">Add Teacher</a></li>
                         <li class="clsteachers"><a href="/School/student_grades.aspx">Add Student Grades</a></li>
-                        <li class="clsteachers"><a href="/School/student_result_card.aspx">Student Result Card</a></li>
                     </ul>
                 </li>
 

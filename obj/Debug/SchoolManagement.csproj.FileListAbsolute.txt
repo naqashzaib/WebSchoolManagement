@@ -16,3 +16,8 @@ D:\Naqash IT\Production\freelancing\WebSchoolManagement\bin\suitespk.pdb
 D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
 D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\suitespk.dll
 D:\Naqash IT\Production\freelancing\WebSchoolManagement\obj\Debug\suitespk.pdb
+D:\HamzaPublished Projects\git\w\WebSchoolManagement\bin\suitespk.dll
+D:\HamzaPublished Projects\git\w\WebSchoolManagement\bin\suitespk.pdb
+D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
+D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\suitespk.dll
+D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\suitespk.pdb

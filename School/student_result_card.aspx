@@ -13,7 +13,6 @@
             //Insert Student Info Script
 
 
-
  $(document).on('focusout ', '.clsMarksBoxAll', function () {
 
                if ($(this).prop('disabled') == false) {
@@ -125,14 +124,16 @@
 
         //showing student info in table
         function showStdInfo() {
-            $.ajax({
-                url: '../webservices/AddSubjects.asmx/GetSubjects',
+           $.ajax({
+                url: '../webservices/AddGrades.asmx/GetPositions',
                 method: 'POST',
                 dataType: 'json',
-                success: function (data2) {
-                    $(data1).each(function (index, infostd) {
+                                success: function (data21) {
+                                    $(data21).each(function (index, infostd) {
+                        if (Number(infostd.std_id) == Number(localStorage['adminid'])) {
+                            $('#spanPosition').html(index + 1);
 
-                        $('#spanPosition').html(index+1);
+                        }
 
                     })
                 },
@@ -140,12 +141,17 @@
                     alert("Error")
                 }
             });
+           var addstudent = {};
+           addstudent.std_id = localStorage['adminid'];
+
 
             $.ajax({
                 url: '../webservices/AddGrades.asmx/GetStudentCard',
                 async: false,
                 method: 'POST',
                 dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                                data: '{addstudent:' + JSON.stringify(addstudent) + '}',
                 success: function (data) {
                     var subjectsName = [];
                     var subjectsId = [];
@@ -156,7 +162,7 @@
                         async: false,
                         method: 'POST',
                         dataType: 'json',
-                        success: function (data1) {
+                                                success: function (data1) {
                             var totalSubjectMarks = 0;
                             $('.clsTheadSubject').remove()
                             $(data1).each(function (index, infostd) {
