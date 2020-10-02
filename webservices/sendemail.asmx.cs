@@ -102,7 +102,7 @@ namespace suitespk.webservices
                     client.EnableSsl = true;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("naqash031@gmail.com", "naqash12");
+                    client.Credentials = new NetworkCredential("", "");
                     MailMessage mm = new MailMessage(objSendEmail.EmailAddress, objSendEmail.EmailAddress, objSendEmail.Subject, htmlbody);
                     mm.From = new MailAddress("naqash031@gmail.com", "Farooq Tech");
                     mm.IsBodyHtml = true;
