@@ -21,3 +21,9 @@ D:\HamzaPublished Projects\git\w\WebSchoolManagement\bin\suitespk.pdb
 D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
 D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\suitespk.dll
 D:\HamzaPublished Projects\git\w\WebSchoolManagement\obj\Debug\suitespk.pdb
+H:\Online Work\WebSchoolManagement\bin\suitespk.dll.config
+H:\Online Work\WebSchoolManagement\bin\suitespk.dll
+H:\Online Work\WebSchoolManagement\bin\suitespk.pdb
+H:\Online Work\WebSchoolManagement\obj\Debug\SchoolManagement.csprojResolveAssemblyReference.cache
+H:\Online Work\WebSchoolManagement\obj\Debug\suitespk.dll
+H:\Online Work\WebSchoolManagement\obj\Debug\suitespk.pdb

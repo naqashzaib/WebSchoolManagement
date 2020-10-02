@@ -167,6 +167,7 @@
                             $('.clsTheadSubject').remove()
                             $(data1).each(function (index, infostd) {
                                 subjectsName.push(infostd.std_name)
+
                                 subjectsId.push(infostd.std_id)
                                 subjectsMarks.push(infostd.std_class)
                                 totalSubjectMarks= Number(totalSubjectMarks) + Number(infostd.std_class)
@@ -179,6 +180,8 @@
                             $(data).each(function (index, infostd) {
                                 if ($.inArray(infostd.std_id, studentId) == "-1" && Number(infostd.std_id) > 0) {
                                     studentNames.push(infostd.std_name + " " + infostd.std_lastname)
+                                    $('#spanStudnetName').html(infostd.std_name + " " + infostd.std_lastname)
+
                                     studentId.push(infostd.std_id)
                                 }
                             });
@@ -281,6 +284,8 @@
                             <div class="card">
 
                                 <div  class="card-body table-responsive">
+                                    <h4> <span style="    color: #3bc0c3;">Student Name:</span> <span id="spanStudnetName"></span></h4>
+
                                     <table id="tblBalanceSheet"  class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                                         <thead>
@@ -298,7 +303,7 @@
                                         <tbody id="rowstudents">
                                         </tbody>
                                     </table>
-                                    <h4>Position in Class: <span id="spanPosition"></span></h4>
+                                    <h4> <span style="    color: #3bc0c3;">Position in Class: </span><span id="spanPosition"></span></h4>
                                 </div>
                             </div>
                         </div>

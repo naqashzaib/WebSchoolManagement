@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Suites.PK | Dashboard</title>
+    <title> SIT</title>
     <!-- App favicon -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +45,7 @@
                 $('.clsstudent').hide();
                 $('.listshowstudent').hide();
 
+                $('.clsResultcard1').hide();
 
 
                 if (userrole == "admin") {
@@ -57,6 +58,8 @@
                 }
                 else if (userrole == "student") {
                     $('.clsstudent').show();
+                    $('.clsResultcard1').show();
+
                 }
                 else if (userrole == "teacher") {
                     $('.clsteachers').show();
@@ -566,7 +569,7 @@ line-height: 10px!important;
 
                         <li class="listshowstudent"><a href="/School/students-data.aspx">Add Student</a></li>
                         <li><a  class="clsteachers" href="/School/students_grades_report.aspx">View Mark Sheet</a></li>
-                        <li><a href="/School/student_result_card.aspx">Student Result Card</a></li>
+                        <li><a class="clsResultcard1" href="/School/student_result_card.aspx">Student Result Card</a></li>
 
                     </ul>
                 </l>i

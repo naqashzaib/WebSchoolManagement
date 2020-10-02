@@ -103,9 +103,10 @@ namespace suitespk.webservices
                         recexist Objrecexist = new recexist();
                         Objrecexist.Dataexist = "Not Found";
                         listrecexist.Add(Objrecexist);
+                        transaction.Commit();
+
                     }
                 }
-                transaction.Commit();
             }
             JavaScriptSerializer js = new JavaScriptSerializer();
             Context.Response.Clear();
@@ -125,7 +126,7 @@ namespace suitespk.webservices
             string cs = ConfigurationManager.ConnectionStrings["student_data"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM add_std_info,classes,login where login.member_id=add_std_info.std_id AND  classes.classes_id=add_std_info.classes_id", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM add_std_info,classes,login where login.member_id=add_std_info.std_id AND login.login_type='student' and classes.classes_id=add_std_info.classes_id", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
