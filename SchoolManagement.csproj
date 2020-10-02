@@ -254,6 +254,9 @@
     <Content Include="dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="forgot_password.aspx" />
+    <Content Include="images\logo1.png" />
+    <Content Include="images\logo2.png" />
+    <Content Include="images\siteicon.png" />
     <Content Include="PasswordCheck\example.png" />
     <Content Include="PasswordCheck\password.css" />
     <Content Include="PasswordCheck\password.js" />
@@ -266,6 +269,7 @@
     <Content Include="School\students-data.aspx" />
     <Content Include="School\students_grades_report.aspx" />
     <Content Include="School\student_grades.aspx" />
+    <Content Include="School\student_result_card.aspx" />
     <Content Include="temp\footer.html" />
     <Content Include="temp\right-sidebar.html" />
     <Content Include="temp\sidebar.html" />
@@ -376,6 +380,13 @@
     </Compile>
     <Compile Include="School\student_grades.aspx.designer.cs">
       <DependentUpon>student_grades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="School\student_result_card.aspx.cs">
+      <DependentUpon>student_result_card.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="School\student_result_card.aspx.designer.cs">
+      <DependentUpon>student_result_card.aspx</DependentUpon>
     </Compile>
     <Compile Include="webservices\AddGrades.asmx.cs">
       <DependentUpon>AddGrades.asmx</DependentUpon>

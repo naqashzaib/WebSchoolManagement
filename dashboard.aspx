@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">Welcome !</h4>
+                                <h4 class="page-title">Welcome To <b class="clsSpanUserName"></b></h4>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb p-0 m-0">
                                         <li class="breadcrumb-item active">Dashboard</li>
@@ -51,7 +51,7 @@
                     </div>
                     <!-- end page title -->
 
-                    <div class="row">
+                <%--    <div class="row">
                         <div class="col-xl-3 col-sm-6">
                             <div class="card bg-pink">
                                 <div class="card-body widget-style-2">
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <!-- End row -->
 

@@ -12,9 +12,9 @@
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <script src="../assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
     <!-- App favicon -->
-    <link rel="shortcut icon" href="./assets/images/iconS.png" />
+    <link rel="shortcut icon" href="/images/siteicon.png" />
     <!-- third party css -->
     <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -33,12 +33,44 @@
         $(document).ready(function () {
             var getloginroleid;
             if ('<%= Session["username"].ToString() %>' == null || '<%= Session["username"].ToString() %>' == "") {
-                window.location.href = "../Default.aspx";
+                window.location.href = "/Default.aspx";
             } else {
                 $('.clsSpanUserName').html('<%= Session["username"].ToString() %>');
                 localStorage['adminid'] = '<%= Session["login_id"].ToString() %>';
                 var userrole = '<%= Session["userrole"].ToString() %>';
+
+                $('.clsadmin').hide();
+                $('.listshowteacher').hide();
+                $('.clsteachers').hide();
+                $('.clsstudent').hide();
+                $('.listshowstudent').hide();
+
+
+
+                if (userrole == "admin") {
+                    $('.clsadmin').show();
+                    $('.listshowteacher').show();
+                    $('.clsteachers').show();
+                    $('.clsstudent').show();
+                    $('.listshowstudent').show();
+
+                }
+                else if (userrole == "student") {
+                    $('.clsstudent').show();
+                }
+                else if (userrole == "teacher") {
+                    $('.clsteachers').show();
+                }
+
+
+
+
             }
+
+
+
+
+
         });      
 
         function convertdefulatnumber(date) {
@@ -76,7 +108,7 @@
         function signOut() {
             localStorage.clear();
             sessionStorage.clear();
-            window.location.href = "../Default.aspx";
+            window.location.href = "/Default.aspx";
         }
     </script>
     
@@ -436,8 +468,7 @@ line-height: 10px!important;
     background-color: #f9f9f9bf!important;
 }
 
-
-
+     
     </style>
 
     <!-- App css -->
@@ -451,7 +482,7 @@ line-height: 10px!important;
         <ul class="list-unstyled topnav-menu float-right mb-0">
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                    <img src="/images/siteicon.png" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ml-1 clsSpanUserName" >   <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -460,7 +491,7 @@ line-height: 10px!important;
                
 
                     <!-- item-->
-                    <a href="Profile.aspx" class="dropdown-item notify-item">
+                    <a href="../Profile.aspx" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-outline"></i>
                         <span>Profile</span>
                     </a>
@@ -480,25 +511,23 @@ line-height: 10px!important;
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="<%= Page.ResolveUrl("~/dashboard") %>" class="logo text-center logo-dark">
+            <a href="/dashboard.aspx" class="logo text-center logo-dark">
                 <span class="logo-lg">
-                    <img src="../assets/images/logoWhite.png" alt="" height="18" />
-                    <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                    
+
+                    <img src="/images/logo2.png" style="width: 50%;float: left; margin-top: 6%;" />
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-lg-text-dark">V</span> -->
-                    <img src="../assets/images/iconSw.png" alt="" height="">
+                    <img src="/images/logo2.png" alt="" style="width: 50%;float: left; margin-top: 6%;" height="">
                 </span>
             </a>
 
-            <a href="<%= Page.ResolveUrl("~/dashboard") %>" class="logo text-center logo-light">
+            <a href="/dashboard.aspx" class="logo text-center logo-light">
                 <span class="logo-lg">
-                    <img src="../assets/images/logoWhite.png" alt="" height="">
-                    <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                    <img src="/images/logo2.png" alt=""  style="width: 50%;float: left; margin-top: 6%;" height="">
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-lg-text-dark">V</span> -->
-                    <img src="../assets/images/iconSw.png" alt="" height="">
+                    <img src="/images/logo2.png" alt=""  style="width: 50%;float: left; margin-top: 6%;" height="">
                 </span>
             </a>
         </div>
@@ -529,40 +558,43 @@ line-height: 10px!important;
                     <li class="menu-title">Navigation</li>
                 
                 
-                <li>
+                <li class="clsadmin clsstudent">
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class="ion-md-basket"></i>
+                      
+                        <i class="icon ion-ios-school"></i>
                         <span> Student </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
 
-                        <li><a href="../School/students-data.aspx">Add Student</a></li>
-                        <li><a href="../School/Add_Teacher.aspx">View Grades</a></li>
+                        <li class="listshowstudent"><a href="/School/students-data.aspx">Add Student</a></li>
+                        <li><a href="/School/students_grades_report.aspx">View Mark Sheet</a></li>
                     </ul>
                 </li>
                 
-                <li>
+                <li class="clsadmin clsteachers">
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class="ion-md-basket"></i>
+                        <i class="icon ion-ios-contact"></i>
                         <span> Teacher </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
 
-                        <li><a href="../School/Add_Teacher.aspx">Add Teacher</a></li>
-                        <li><a href="../School/Add_Teacher.aspx">Add Student Result</a></li>
+                        <li class="listshowteacher"><a href="/School/Add_Teacher.aspx">Add Teacher</a></li>
+                        <li class="clsteachers"><a href="/School/student_grades.aspx">Add Student Grades</a></li>
+                        <li class="clsteachers"><a href="/School/student_result_card.aspx">Student Result Card</a></li>
                     </ul>
                 </li>
 
-                <li>
+                <li class="clsadmin">
                     <a href="javascript: void(0);" class="waves-effect">
-                        <i class="ion-md-basket"></i>
+                        <i class="icon ion-md-settings"></i>
                         <span> Configuration </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="../School/add_classes.aspx">Add Class</a></li>
+                        <li><a href="/School/add_classes.aspx">Add Class</a></li>
+                        <li><a href="/School/add_subjects.aspx">Add Subject</a></li>
                     </ul>
                 </li>
 
@@ -595,44 +627,44 @@ line-height: 10px!important;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    2020 &copy;Educator lasani campus Design By <a href="#">Exploit Tech.</a>
+                    2020 &copy; Design By <a href="#">Farooq Tech.</a>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="../assets/js/vendor.min.js"></script>
+    <script src="/assets/js/vendor.min.js"></script>
     <!-- Required datatable js -->
-    <script src="../assets/libs/moment/moment.min.js"></script>
-    <script src="../assets/libs/jquery-scrollto/jquery.scrollTo.min.js"></script>
-    <script src="../assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/assets/libs/moment/moment.min.js"></script>
+    <script src="/assets/libs/jquery-scrollto/jquery.scrollTo.min.js"></script>
+    <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
     <!-- Vendor js -->
-<script src="../assets/libs/toastr/toastr.min.js"></script>
+<script src="/assets/libs/toastr/toastr.min.js"></script>
 
-<script src="../assets/js/pages/toastr.init.js"></script>
+<script src="/assets/js/pages/toastr.init.js"></script>
     <!-- Required datatable js -->
-    <script src="../assets/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="../assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
     <!-- Buttons examples -->
-    <script src="../assets/libs/datatables/dataTables.buttons.min.js"></script>
-    <script src="../assets/libs/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="../assets/libs/jszip/jszip.min.js"></script>
-    <script src="../assets/libs/pdfmake/pdfmake.min.js"></script>
-    <script src="../assets/libs/pdfmake/vfs_fonts.js"></script>
-    <script src="../assets/libs/datatables/buttons.html5.min.js"></script>
-    <script src="../assets/libs/datatables/buttons.print.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="/assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="/assets/libs/jszip/jszip.min.js"></script>
+    <script src="/assets/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="/assets/libs/pdfmake/vfs_fonts.js"></script>
+    <script src="/assets/libs/datatables/buttons.html5.min.js"></script>
+    <script src="/assets/libs/datatables/buttons.print.min.js"></script>
 
     <!-- Responsive examples -->
-    <script src="../assets/libs/datatables/dataTables.responsive.min.js"></script>
-    <script src="../assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="/assets/libs/datatables/responsive.bootstrap4.min.js"></script>
 
-    <script src="../assets/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="../assets/libs/datatables/dataTables.select.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.select.min.js"></script>
 
     <!-- Datatables init -->
-    <script src="../assets/js/pages/datatables.init.js"></script>
+    <script src="/assets/js/pages/datatables.init.js"></script>
 
     <!-- App js -->
-    <script src="../assets/js/app.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
 
 </body>
 </html>

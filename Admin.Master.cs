@@ -11,9 +11,9 @@ namespace suitespk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["username"] == "")
+            if (Session["username"] == "" || Session["username"] ==null)
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("/Default.aspx");
             }
         }
     }

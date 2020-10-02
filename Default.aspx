@@ -11,7 +11,8 @@
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="images/siteicon.png" />
+
     <script src="assets/js/vendor.min.js"></script>
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -147,7 +148,26 @@
     
     <style>
         .justify-content-center {
-            margin-top: 11%;
+            margin-top: 6%;
+            
+        }
+        .bg-primary {
+            background-color: #1a2942!important;
+        }
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #1a5051;
+            border-color: #083334;
+        }
+        body {
+            background-image: url(images/bg1.jpg);
+            background-size: 100%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card-body {
+            color: #fff;
         }
     </style>
 
@@ -156,10 +176,13 @@
 
         <div class="account-pages my-5">
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" >
                     <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card mt-4">
-                            <div class="card-header p-4 bg-primary">
+                        <img src="images/logo2.png" style="height: 91px;margin-left: 30%;" />
+
+                        <div class="card mt-4" style="border-radius: 15px; background-color: #00000087;">
+
+                            <div class="card-header p-4 bg-primary" style="border-radius: 15px;">
                                 <h4 class="text-white text-center mb-0 mt-0">Login Panel</h4>
                             </div>
                             <div class="card-body">
