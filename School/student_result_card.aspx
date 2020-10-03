@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="student_result_card.aspx.cs" Inherits="suitespk.student_result_card" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Student Data</title>
     <script>
@@ -7,104 +8,104 @@
             $('button').css('border-radius', '0px');
             $('input').css('border-radius', '0px');
             $('.modal-content').css('border-radius', '0px');
-          
+
             showStdInfo();
 
             //Insert Student Info Script
 
 
- $(document).on('focusout ', '.clsMarksBoxAll', function () {
+            $(document).on('focusout ', '.clsMarksBoxAll', function () {
 
-               if ($(this).prop('disabled') == false) {
-                   var subjectid = ($(this).attr("id"));
-                   var subjectTotalMarks = ($(this).attr("name"));
-                   var marks = Number($(this).val());
-                   var stdId = $(this).closest('tr').attr('id');
-                   if (Number(marks) > Number(subjectTotalMarks)) {
-                       toastr["error"]("Obtained Marks cannot greater than total marks");
-                       $(this).focus();
-                       return false;
-                   }
-                   var addstudent = {};
-                   addstudent.std_id = stdId;
-                   addstudent.subjects_id = subjectid;
-                   addstudent.std_marks = marks;
-                   $.ajax({
-                       //async: false,
-                       url: '../webservices/AddGrades.asmx/UpdateMarks',
-                       method: 'POST',
-                       contentType: 'application/json;charset=utf-8',
-                       data: '{ObjEditStdInfo:' + JSON.stringify(addstudent) + '}',
-                       dataType: 'JSON',
-                       success: function (data) {
-                           toastr["success"]("Marks Updated");
+                if ($(this).prop('disabled') == false) {
+                    var subjectid = ($(this).attr("id"));
+                    var subjectTotalMarks = ($(this).attr("name"));
+                    var marks = Number($(this).val());
+                    var stdId = $(this).closest('tr').attr('id');
+                    if (Number(marks) > Number(subjectTotalMarks)) {
+                        toastr["error"]("Obtained Marks cannot greater than total marks");
+                        $(this).focus();
+                        return false;
+                    }
+                    var addstudent = {};
+                    addstudent.std_id = stdId;
+                    addstudent.subjects_id = subjectid;
+                    addstudent.std_marks = marks;
+                    $.ajax({
+                        //async: false,
+                        url: '../webservices/AddGrades.asmx/UpdateMarks',
+                        method: 'POST',
+                        contentType: 'application/json;charset=utf-8',
+                        data: '{ObjEditStdInfo:' + JSON.stringify(addstudent) + '}',
+                        dataType: 'JSON',
+                        success: function (data) {
+                            toastr["success"]("Marks Updated");
 
-                           // toastr["success"]("Student info successfully deleted.");
-                           //showStdInfo();
-                       },
-                       error: function (jqXHR, exception) {
-                           if (jqXHR.status == 500) {
-                               toastr["error"]("Internal server error <b>[500]</b> occured");
-                           }
-                       }
-                   });
-               }
-          
-          
+                            // toastr["success"]("Student info successfully deleted.");
+                            //showStdInfo();
+                        },
+                        error: function (jqXHR, exception) {
+                            if (jqXHR.status == 500) {
+                                toastr["error"]("Internal server error <b>[500]</b> occured");
+                            }
+                        }
+                    });
+                }
+
+
             });
 
-           $('#btnPrintReport').click(function () {
+            $('#btnPrintReport').click(function () {
 
 
-               $('.head').attr("style", "color: black; background-color:white; border:2px solid black ");
-               $('#tblBalanceSheet').attr("style", "width: 100%; max-width: 100%; margin-top: 7px; font-siz:12px;  font-family: calibri;  ");
-               $('#tblBalanceSheet tbody tr').attr("style", "line-height:8px; font-size:11px;");
+                $('.head').attr("style", "color: black; background-color:white; border:2px solid black ");
+                $('#tblBalanceSheet').attr("style", "width: 100%; max-width: 100%; margin-top: 7px; font-siz:12px;  font-family: calibri;  ");
+                $('#tblBalanceSheet tbody tr').attr("style", "line-height:8px; font-size:11px;");
 
 
-               $('#tblBalanceSheet tbody').attr("style", " font-size:9px;");
-               $('#tblBalanceSheet thead').attr("style", "line-height:10px; font-size:12px");
-               $('#tblBalanceSheet').attr("border", "1px ");
-               $('#tblBalanceSheet').attr("cellpadding", "5px ");
-               $('#tblBalanceSheet').attr("cellspacing", "0px ");
+                $('#tblBalanceSheet tbody').attr("style", " font-size:9px;");
+                $('#tblBalanceSheet thead').attr("style", "line-height:10px; font-size:12px");
+                $('#tblBalanceSheet').attr("border", "1px ");
+                $('#tblBalanceSheet').attr("cellpadding", "5px ");
+                $('#tblBalanceSheet').attr("cellspacing", "0px ");
 
 
-               $('.divToPrint').attr("style", "font-family: calibri; font-size:12px  ");
-               $('.green1').attr("style", "font-weight:bold; background:	 #cccccc; ");
-               $('#Ledgerheader').show();
+                $('.divToPrint').attr("style", "font-family: calibri; font-size:12px  ");
+                $('.green1').attr("style", "font-weight:bold; background:	 #cccccc; ");
+                $('#Ledgerheader').show();
 
-               $('#btnPrintReport').hide();
-               printData();
-               $('#btnPrintReport').show();
-               $('#Ledgerheader').hide();
-               $('.divToPrint').attr("style", " ");
+                $('#btnPrintReport').hide();
+                printData();
+                $('#btnPrintReport').show();
+                $('#Ledgerheader').hide();
+                $('.divToPrint').attr("style", " ");
 
-               $('#divProfile').hide();
-               $('#divProfile').attr("style", " ");
-               $('#tblBalanceSheet tbody tr').attr("style", "");
-               //$('#tblBalanceSheet tbody').attr("style", " font-size:9px;");
-               $('#tblBalanceSheet thead').attr("style", "");
+                $('#divProfile').hide();
+                $('#divProfile').attr("style", " ");
+                $('#tblBalanceSheet tbody tr').attr("style", "");
+                //$('#tblBalanceSheet tbody').attr("style", " font-size:9px;");
+                $('#tblBalanceSheet thead').attr("style", "");
 
-               $('#tblBalanceSheet').attr("style", "  ");
-               $('#tblBalanceSheet').attr("border", " ");
-               $('#tblBalanceSheet').attr("cellpadding", " ");
-               $('.head').attr("style", " ");
-
-
-               $('.head').attr("style", "");
-               $('#tblBalanceSheet').attr("style", "");
-               $('#tblBalanceSheet tbody tr').attr("style", "");
+                $('#tblBalanceSheet').attr("style", "  ");
+                $('#tblBalanceSheet').attr("border", " ");
+                $('#tblBalanceSheet').attr("cellpadding", " ");
+                $('.head').attr("style", " ");
 
 
-               $('#tblBalanceSheet tbody').attr("style", " ");
-               $('#tblBalanceSheet thead').attr("style", "");
-               $('#tblBalanceSheet').attr("border", " ");
-               $('#tblBalanceSheet').attr("cellpadding", " ");
-               $('#tblBalanceSheet').attr("cellspacing", " ");
+                $('.head').attr("style", "");
+                $('#tblBalanceSheet').attr("style", "");
+                $('#tblBalanceSheet tbody tr').attr("style", "");
 
 
-               $('.divToPrint').attr("style", "  ");
+                $('#tblBalanceSheet tbody').attr("style", " ");
+                $('#tblBalanceSheet thead').attr("style", "");
+                $('#tblBalanceSheet').attr("border", " ");
+                $('#tblBalanceSheet').attr("cellpadding", " ");
+                $('#tblBalanceSheet').attr("cellspacing", " ");
 
-           });
+
+                $('.divToPrint').attr("style", "  ");
+
+            });
 
         });
 
@@ -119,30 +120,15 @@
             newWin.print();
             newWin.close();
         }
-   
+
 
 
         //showing student info in table
         function showStdInfo() {
-           $.ajax({
-                url: '../webservices/AddGrades.asmx/GetPositions',
-                method: 'POST',
-                dataType: 'json',
-                                success: function (data21) {
-                                    $(data21).each(function (index, infostd) {
-                        if (Number(infostd.std_id) == Number(localStorage['adminid'])) {
-                            $('#spanPosition').html(index + 1);
-
-                        }
-
-                    })
-                },
-                error: function (jqXHR, exception) {
-                    alert("Error")
-                }
-            });
-           var addstudent = {};
-           addstudent.std_id = localStorage['adminid'];
+            
+         
+            var addstudent = {};
+            addstudent.std_id = localStorage['adminid'];
 
 
             $.ajax({
@@ -151,8 +137,29 @@
                 method: 'POST',
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
-                                data: '{addstudent:' + JSON.stringify(addstudent) + '}',
+                data: '{addstudent:' + JSON.stringify(addstudent) + '}',
                 success: function (data) {
+
+                    $.ajax({
+                        url: '../webservices/AddGrades.asmx/GetPositions',
+                        method: 'POST',
+                        dataType: 'json',
+                        success: function (data21) {
+                            $(data21).each(function (index, infostd) {
+                                if (Number(infostd.std_id) == Number(data[0].std_id)) {
+                                    $('#spanPosition').html(index + 1);
+
+                                }
+
+                            })
+                        },
+                        error: function (jqXHR, exception) {
+                            alert("Error")
+                        }
+                    });
+
+
+
                     var subjectsName = [];
                     var subjectsId = [];
                     var subjectsMarks = [];
@@ -162,7 +169,7 @@
                         async: false,
                         method: 'POST',
                         dataType: 'json',
-                                                success: function (data1) {
+                        success: function (data1) {
                             var totalSubjectMarks = 0;
                             $('.clsTheadSubject').remove()
                             $(data1).each(function (index, infostd) {
@@ -170,7 +177,7 @@
 
                                 subjectsId.push(infostd.std_id)
                                 subjectsMarks.push(infostd.std_class)
-                                totalSubjectMarks= Number(totalSubjectMarks) + Number(infostd.std_class)
+                                totalSubjectMarks = Number(totalSubjectMarks) + Number(infostd.std_class)
                                 //$('#Thead').append('<th class="clsTheadSubject head">' + infostd.std_name + '(' + infostd.std_class + ')   </th>')
                             });
                             var studentNames = [];
@@ -189,7 +196,7 @@
 
                                 //getStudentSubjectsMarks
                                 var stdMarksTd = "";
-                                var totalGotMarks =0;
+                                var totalGotMarks = 0;
                                 for (var k = 0; k < subjectsId.length; k++) {
                                     var stdSubjectMarks = 0;
                                     $(data).each(function (index, infostd) {
@@ -244,10 +251,10 @@
                 }
             });
         }
-    
+
     </script>
     <style>
-       #rowstudents tr td{
+        #rowstudents tr td {
             padding: .15rem;
         }
     </style>
@@ -270,7 +277,7 @@
                                 <h4 class="page-title col-10">Student Marks Detail 
 
                                 </h4>
-                                        <input style="float: right" value="Print" id="btnPrintReport" type="button" class="btn btn-primary btn-xs pull-right col-2 " />
+                                <input style="float: right" value="Print" id="btnPrintReport" type="button" class="btn btn-primary btn-xs pull-right col-2 " />
 
                             </div>
                         </div>
@@ -283,19 +290,19 @@
 
                             <div class="card">
 
-                                <div  class="card-body table-responsive">
-                                    <h4> <span style="    color: #3bc0c3;">Student Name:</span> <span id="spanStudnetName"></span></h4>
+                                <div class="card-body table-responsive">
+                                    <h4><span style="color: #3bc0c3;">Student Name:</span> <span id="spanStudnetName"></span></h4>
 
-                                    <table id="tblBalanceSheet"  class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="tblBalanceSheet" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                                         <thead>
                                             <tr id="Thead">
                                                 <th class="head" style="width: 6%;">Sr#</th>
-                                                <th  class="head">Subject Name</th>
-                                                <th  class="head">Total Marks</th>
-                                                <th  class="head">Obtained Marks</th>
-                                                <th  class="head">Percentage(%)</th>
-                                                <th  class="head">Grade</th>
+                                                <th class="head">Subject Name</th>
+                                                <th class="head">Total Marks</th>
+                                                <th class="head">Obtained Marks</th>
+                                                <th class="head">Percentage(%)</th>
+                                                <th class="head">Grade</th>
                                             </tr>
 
 
@@ -303,7 +310,7 @@
                                         <tbody id="rowstudents">
                                         </tbody>
                                     </table>
-                                    <h4> <span style="    color: #3bc0c3;">Position in Class: </span><span id="spanPosition"></span></h4>
+                                    <h4><span style="color: #3bc0c3;">Position in Class: </span><span id="spanPosition"></span></h4>
                                 </div>
                             </div>
                         </div>
@@ -316,8 +323,8 @@
 
 
         </div>
-        
-       
+
+
     </div>
     <!-- sample modal content -->
 

@@ -125,8 +125,8 @@ namespace suitespk.webservices
             string cs = ConfigurationManager.ConnectionStrings["student_data"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand("select add_std_info.std_id,add_std_info.std_name,  add_std_info.std_lastname,subjects.subjects_id, subjects.subjects_name, marks.marks_id, marks.std_marks  from add_std_info left join  marks on  add_std_info.std_id=marks.std_id   left join subjects on subjects.subjects_id=marks.subjects_id where add_std_info.std_id='" + addstudent.std_id + "' order by add_std_info.std_name, subjects.subjects_name", con);
-                con.Open();
+                SqlCommand cmd = new SqlCommand("select add_std_info.std_id,add_std_info.std_name,  add_std_info.std_lastname,subjects.subjects_id, subjects.subjects_name, marks.marks_id, marks.std_marks  from login  inner join add_std_info on add_std_info.std_id=login.member_id left join  marks on  add_std_info.std_id=marks.std_id   left join subjects on subjects.subjects_id=marks.subjects_id where login.login_id='" + addstudent.std_id + "' order by add_std_info.std_name, subjects.subjects_name", con);
+               con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
