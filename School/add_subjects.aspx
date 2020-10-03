@@ -97,23 +97,34 @@
                   $('#updateHead').show();
                   StdInfoId = ($(this).attr("id"));
                   var $tr = $(this).closest('tr');
-                  $('#txtstdname').val($tr.find('td:nth-child(2)').text());
+                  $('#txtSubjectName').val($tr.find('td:nth-child(2)').text());
+                  $('#txtMarks').val($tr.find('td:nth-child(3)').text());
               });
 
 
               //Update Subject Name
               $(document).on('click', '#btnupdaterec', function () {
-                  if ($('#txtstdname').val() == "") {
-                      toastr["error"]("Don't leave empty <b>Subject Name</b> field");
-                      $('#txtstdname').focus().css('border-color', '#d9534f');
+                  if ($('#txtSubjectName').val() == "") {
+                      toastr["error"]("Subject Name is Required");
+                      $('#txtSubjectName').focus();
                       return false;
                   }
+                  if (Number($('#txtMarks').val()) == 0) {
+                      toastr["error"]("Subject Total Marks is Required");
+                      $('#txtMarks').focus();
+                      return false;
+                  }
+
+
+
+
                   var addstudent = {};
+                  addstudent.std_name = $('#txtSubjectName').val();
+                  addstudent.std_lastname = $('#txtMarks').val();
                   addstudent.std_id = StdInfoId;
-                  addstudent.std_name = $('#txtstdname').val();
                   $.ajax({
                       async: false,
-                      url: '../webservices/Svr_Add_Student.asmx/UpdateClasses',
+                      url: '../webservices/AddSubjects.asmx/UpdateSubject',
                       method: 'POST',
                       contentType: 'application/json;charset=utf-8',
                       data: '{ObjEditStdInfo:' + JSON.stringify(addstudent) + '}',
@@ -154,7 +165,7 @@
                   if (confirm("Are you really want to delete this Subject Name?") == true) {
                       $.ajax({
                           async: false,
-                          url: '../webservices/Svr_Add_Student.asmx/DelSubjects',
+                          url: '../webservices/AddSubjects.asmx/DelSubject',
                           method: 'POST',
                           contentType: 'application/json;charset=utf-8',
                           data: '{ObjDelStdInfo:' + JSON.stringify(addstudent) + '}',

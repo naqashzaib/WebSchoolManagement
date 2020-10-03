@@ -25,6 +25,21 @@ namespace suitespk.webservices
     public class AddSubjects : System.Web.Services.WebService
     {
         [WebMethod]
+        public void DelSubject(addstudent ObjDelStdInfo)
+        {
+            string connectionCS = ConfigurationManager.ConnectionStrings["student_data"].ConnectionString;
+            using (SqlConnection objconn = new SqlConnection(connectionCS))
+            {
+                objconn.Open();
+                SqlCommand cmd3 = new SqlCommand("DELETE FROM subjects WHERE subjects_id = '" + ObjDelStdInfo.std_id + "'", objconn);
+                cmd3.ExecuteNonQuery();
+                objconn.Close(); cmd3 = new SqlCommand("DELETE FROM marks WHERE subjects_id = '" + ObjDelStdInfo.std_id + "'", objconn);
+                cmd3.ExecuteNonQuery();
+                objconn.Close();
+
+            }
+        }
+        [WebMethod]
         public void fnAddSubject(addstudent ObjAddStd)
         {
 
@@ -76,6 +91,47 @@ namespace suitespk.webservices
             Context.Response.Write(js.Serialize(listrecexist));
             HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
+
+      [WebMethod]
+        public void UpdateSubject(addstudent ObjEditStdInfo)
+        {
+            List<recexist> listrecexist = new List<recexist>();
+            listrecexist.Clear();
+            string ConnectionString = ConfigurationManager.ConnectionStrings["student_data"].ConnectionString;
+            using (SqlConnection objcon = new SqlConnection(ConnectionString))
+            {
+                //objcon.Open();
+                //SqlCommand cmd3 = new SqlCommand("SELECT subjects_name FROM subjects WHERE subjects_name ='" + ObjEditStdInfo.std_name + "'", objcon);
+                //SqlDataReader re = null;
+                //re = cmd3.ExecuteReader();
+                //if (re.HasRows)
+                //{
+                //    recexist Objrecexist = new recexist();
+                //    Objrecexist.Dataexist = "found";
+                //    listrecexist.Add(Objrecexist);
+                //}
+                //else
+                //{
+                    objcon.Close();
+                    objcon.Open();
+                    SqlCommand cmnd2 = new SqlCommand("UPDATE subjects SET subjects_name ='" + ObjEditStdInfo.std_name + "',total_marks ='" + ObjEditStdInfo.std_lastname + "' WHERE subjects_id= '" + ObjEditStdInfo.std_id + "'", objcon);
+                    cmnd2.ExecuteNonQuery();
+                    objcon.Close();
+                    recexist Objrecexist = new recexist();
+                    Objrecexist.Dataexist = "Not Found";
+                    listrecexist.Add(Objrecexist);
+                //}
+                //objcon.Close();
+            }
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            Context.Response.Clear();
+            Context.Response.ContentType = "application/json";
+            Context.Response.AddHeader("content-length", js.Serialize(listrecexist).Length.ToString());
+            Context.Response.Flush();
+            Context.Response.Write(js.Serialize(listrecexist));
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+
         [WebMethod]
         public void GetSubjects()
         {
